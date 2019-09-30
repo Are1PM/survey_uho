@@ -92,9 +92,17 @@ class Home extends MY_Controller
     public function survey()
     {
         if (isset($this->input->post()['submit'])) {
-            $this->Survey_model->insert_survey();
+
+            if ($this->Survey_model->insert_survey()) {
+                $this->session->set_flashdata('info', 'Terima kasih telah mengisi survey');
+                redirect('admin/home');
+            }else{
+                $this->session->set_flashdata('info', 'Anda gagal mengisi survey');
+                redirect('admin/home');
+            }
         }else{
-            echo "gagal";;die;
+            $this->session->set_flashdata('info', 'Anda gagal mengisi survey');
+            redirect('admin/home');
         }
         
     }

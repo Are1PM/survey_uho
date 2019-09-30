@@ -25,7 +25,7 @@
                 <div class="col-sm-1 pl-0 pr-0">
                   <div class="form-check">
                     <label class="form-check-label">
-                      <input type="radio" class="form-check-input" name="soal_<?= $i?>" id="radio<?= $i?>" value="tidak memuaskan">
+                      <input type="radio" class="form-check-input" name="soal_<?= $i?>" id="radio<?= $i?>" value="tidak memuaskan_<?= $s->id ?>">
                       (1) TM
                     </label>
                   </div>

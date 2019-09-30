@@ -53,17 +53,23 @@ class Survey_model extends CI_Model
     {
         if (isset($this->input->post()['submit'])) {
             for ($i=1; $i < count($this->input->post()); $i++) { 
-                $nilai = explode('_', $this->input->post('soal_'.$i));
-                
+                $hasil = explode('_', $this->input->post('soal_'.$i));
+                $data = [
+                    'id_user'       => $this->session->userdata('id'),
+                    'id_pertanyaan' => $hasil[1],
+                    'jawaban'       => $hasil[0]
+                ];
+                $this->db->insert('tbl_jawaban',$data);
+                // print_r($hasil);
             }
+            // die;
+            $this->db->where('id',$this->session->userdata['id']);
+            $this->db->update('tbl_user',['user_survey'=>1]);
+            $this->session->userdata['user_survey'] = 1;
+            return true;
+        }else{
+            return false;
         }
-        print_r($nilai);
-        die;
-        // $data = array(
-        //     'id_user' => $this->session->userdata['id'],
-        //     'id_pertanyaan' => ,
-        //     'jawaban' => $this->input->post('nim'),
-        // );
     }
 
 }
