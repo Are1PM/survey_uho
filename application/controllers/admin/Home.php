@@ -17,16 +17,17 @@ class Home extends MY_Controller
     public function index()
     {
         $site = $this->Konfigurasi_model->listing();
+        $check = $this->Survey_model->get_user($this->session->userdata['id']);
         $data = array(
             'title'                 => 'Dashboard | ' . $site['nama_aplikasi'],
             'favicon'               => $site['icon_apps'],
             'site'                  => $site,
             'data_user'             => $this->session->userdata,
         );
-        // print_r($data);die();
-        if($this->session->userdata['user_survey'] == 0){
+        // print_r($check->user_survey);die;
+        if($check->user_survey == 0){
             // jika user belum mengisi form survey
-            if ($this->session->userdata['default_survey'] == 0) {
+            if ($check->default_survey == 0) {
                 $this->template->load('layout/template', 'layout/survey_default', $data);
             }else{
                 if ($this->input->post('lanjut') !== null) {
@@ -87,5 +88,14 @@ class Home extends MY_Controller
             $this->session->set_flashdata('info', 'Terima kasih telah mengisi survey');
             redirect('admin/home');
         }
+    }
+    public function survey()
+    {
+        if (isset($this->input->post()['submit'])) {
+            $this->Survey_model->insert_survey();
+        }else{
+            echo "gagal";;die;
+        }
+        
     }
 }

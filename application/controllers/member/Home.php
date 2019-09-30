@@ -17,6 +17,7 @@ class Home extends MY_Controller
     public function index()
     {
         $site = $this->Konfigurasi_model->listing();
+        $check = $this->Survey_model->get_user($this->session->userdata['id']);
         $data = array(
             'title'     => 'Dashboard | ' . $site['nama_aplikasi'],
             'favicon'   => $site['icon_apps'],
@@ -24,9 +25,9 @@ class Home extends MY_Controller
             'data_user' => $this->session->userdata,
         );
         // [view dibawah untuk mahasiswa alumni]    
-        if($this->session->userdata['user_survey'] == 0){
+        if($check->user_survey == 0){
             // jika user belum mengisi form survey
-            if ($this->session->userdata['default_survey'] == 0) {
+            if ($check->default_survey == 0) {
                 $this->template->load('layout/template', 'layout/survey_default', $data);
             }else{
                 if ($this->input->post('lanjut') !== null) {
@@ -38,7 +39,7 @@ class Home extends MY_Controller
             }
         }else{
             // jika user telah mengisi form survey
-                $this->template->load('layout/template', 'admin/dashboard', $data);
+                $this->template->load('layout/template', 'member/dashboard', $data);
         }
 
     }
@@ -81,11 +82,21 @@ class Home extends MY_Controller
         ]);
 
         if ($this->form_validation->run() == false) {
-             redirect('admin/home');
+             redirect('member/home');
         } else {
+            print_r($this->input);die;
             $this->Survey_model->insert_default_survey();
             $this->session->set_flashdata('info', 'Terima kasih telah mengisi survey');
-            redirect('admin/home');
+            redirect('member/home');
         }
+    }
+    public function survey()
+    {
+        if ($this->input->post('submit') !== null) {
+            print_r($this->input->post('submit'));die;
+        }else{
+            echo "gagal";;die;
+        }
+        
     }
 }

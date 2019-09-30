@@ -3,7 +3,7 @@
     <div class="card">
       <div class="card-body">
         <h4 class="card-title">Form Survey</h4>
-        <form class="form-sample">
+        <form class="form-sample" action="<?= base_url('member/home/survey');?>" method="post">
           <p>
           <div class="row blockquote blockquote-primary">
             Menurut anda seberapa besar penekanan pada pembelajaran di bawah ini dilaksanakan di program studi anda?
@@ -66,7 +66,7 @@
               </div>
               <hr>
               <?php endforeach; ?>
-              <button type="submit" class="btn btn-primary mr-2">Submit</button>
+              <button type="submit" name="submit" class="btn btn-primary mr-2">Submit</button>
             </div>
           </div>
           

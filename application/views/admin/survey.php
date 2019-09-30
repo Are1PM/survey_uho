@@ -3,7 +3,7 @@
     <div class="card">
       <div class="card-body">
         <h4 class="card-title">Form Survey</h4>
-        <form class="form-sample">
+        <form class="form-sample" action="<?= base_url('admin/home/survey');?>" method="post">
           <p>
           <div class="row blockquote blockquote-primary">
             Menurut anda seberapa besar penekanan pada pembelajaran di bawah ini dilaksanakan di program studi anda?
@@ -17,6 +17,7 @@
             <?php 
               $i = 1;
               foreach($soal as $s):
+               // print_r($s);die;
             ?>
               <div class="form-group row">
 
@@ -24,7 +25,7 @@
                 <div class="col-sm-1 pl-0 pr-0">
                   <div class="form-check">
                     <label class="form-check-label">
-                      <input type="radio" class="form-check-input" name="soal_<?= $i?>" id="membershipRadios1" value="tidak memuaskan">
+                      <input type="radio" class="form-check-input" name="soal_<?= $i?>" id="radio<?= $i?>" value="tidak memuaskan">
                       (1) TM
                     </label>
                   </div>
@@ -33,7 +34,7 @@
                 <div class="col-sm-1 pl-0 pr-0">
                   <div class="form-check">
                     <label class="form-check-label">
-                      <input type="radio" class="form-check-input" name="soal_<?= $i?>" id="membershipRadios2" value="kurang memuaskan">
+                      <input type="radio" class="form-check-input" name="soal_<?= $i?>" id="radio<?= $i?>" value="kurang memuaskan_<?= $s->id ?>">
                       (2) KM
                     </label>
                   </div>
@@ -41,7 +42,7 @@
                 <div class="col-sm-1 pl-0 pr-0">
                   <div class="form-check">
                     <label class="form-check-label">
-                      <input type="radio" class="form-check-input" name="soal_<?= $i?>" id="membershipRadios3" value="cukup memuaskan">
+                      <input type="radio" class="form-check-input" name="soal_<?= $i?>" id="radio<?= $i?>" value="cukup memuaskan_<?= $s->id ?>">
                       (3) CM
                     </label>
                   </div>
@@ -49,7 +50,7 @@
                 <div class="col-sm-1 pl-0 pr-0">
                   <div class="form-check">
                     <label class="form-check-label">
-                      <input type="radio" class="form-check-input" name="soal_<?= $i?>" id="membershipRadios4" value="memuaskan">
+                      <input type="radio" class="form-check-input" name="soal_<?= $i?>" id="radio<?= $i?>" value="memuaskan_<?= $s->id ?>">
                       (4) M
                     </label>
                   </div>
@@ -57,7 +58,7 @@
                 <div class="col-sm-1 pl-0 pr-0">
                   <div class="form-check">
                     <label class="form-check-label">
-                      <input type="radio" class="form-check-input" name="soal_<?= $i?>" id="membershipRadios4" value="sangat memuaskan">
+                      <input type="radio" class="form-check-input" name="soal_<?= $i?>" id="radio<?= $i?>" value="sangat memuaskan_<?= $s->id ?>">
                       (5) SM
                     </label>
                   </div>
@@ -65,8 +66,11 @@
             
               </div>
               <hr>
-              <?php endforeach; ?>
-              <button type="submit" class="btn btn-primary mr-2">Submit</button>
+              <?php
+              $i++;
+               endforeach; 
+               ?>
+              <button type="submit" name="submit" class="btn btn-primary mr-2">Submit</button>
             </div>
           </div>
           

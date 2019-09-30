@@ -33,6 +33,13 @@ class Survey_model extends CI_Model
         return $this->db->insert($this->table, $data);
     }
 
+    public function get_user($id)
+    {
+        $this->db->where('id', $id);
+        $query = $this->db->get('tbl_user')->row();
+        return $query;
+    }
+
     public function get_pertanyaan($status)
     {
         
@@ -44,8 +51,15 @@ class Survey_model extends CI_Model
 
     public function insert_survey()
     {
-        // explode('_', $this->input->post(''));
-        //  $data = array(
+        if (isset($this->input->post()['submit'])) {
+            for ($i=1; $i < count($this->input->post()); $i++) { 
+                $nilai = explode('_', $this->input->post('soal_'.$i));
+                
+            }
+        }
+        print_r($nilai);
+        die;
+        // $data = array(
         //     'id_user' => $this->session->userdata['id'],
         //     'id_pertanyaan' => ,
         //     'jawaban' => $this->input->post('nim'),
